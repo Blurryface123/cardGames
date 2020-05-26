@@ -10,4 +10,6 @@ public class CardGamesApplication {
 		SpringApplication.run(CardGamesApplication.class, args);
 	}
 
+
+
 }

@@ -46,6 +46,21 @@ public class webSocketConfig implements WebSocketMessageBrokerConfigurer {
                     }
                 })
                 .withSockJS();
+        registry.addEndpoint("/virus-game")
+                .setHandshakeHandler(new DefaultHandshakeHandler(){
+                    public boolean beforeHandShake(ServerHttpRequest request, ServerHttpResponse response,
+                                                   WebSocketHandler wshandler, Map attributes) throws Exception{
+                        if(request instanceof ServletServerHttpRequest){
+                            ServletServerHttpRequest serverRequest = (ServletServerHttpRequest) request;
+                            HttpSession session = serverRequest.getServletRequest().getSession();
+                            attributes.put("sessionId",session.getId());
+                            System.out.println(attributes.get("sessionId"));
+                        }
+                        return true;
+
+                    }
+                })
+                .withSockJS();
     }
 
 
