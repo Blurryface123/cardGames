@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <link rel="stylesheet" type="text/css" href="./style.css">
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="./board.js"></script>
@@ -20,7 +21,7 @@
         <!-- parte TOP de cartas jugadas EMPIEZA AQUI-->
         <div id="top-container" class="row">
             <div id="player1" class="col hand droppable">
-                <div class="border border-light">
+                <div id="snaptarget" class="border border-light">
                     <div class="card-deck  w-70 h-80">
                         <div class="card">
                             <img class="card-img" src="./img/carta-virus.jpg" alt="Card image">
@@ -181,20 +182,20 @@
         <div id="footer-wrapper" class="row">
             <div id="vacio" class="col">
             </div>
-            <div id="player-self" class="col hand">
+            <div class="col hand">
                 <div class="border border-light">
-                    <div class="card-deck  w-70 h-80">
-                        <div class="card own-hand draggable">
+                    <div id="player-self" class="card-deck  w-70 h-80">
+                        <div id="card-1" class="draggable card own-hand">
                             <img class="card-img" src="./img/carta-virus.jpg" alt="Card image">
                             <div class="card-image-overlay">
                             </div>
                         </div>
-                        <div class="card mx-0 own-hand draggable">
+                        <div class="draggable card mx-0 own-hand">
                             <img class="card-img" src="./img/carta-virus.jpg" alt="Card image">
                             <div class="card-image-overlay">
                             </div>
                         </div>
-                        <div class="card own-hand draggable">
+                        <div class="draggable card own-hand">
                             <img class="card-img" src="./img/carta-virus.jpg" alt="Card image">
                             <div class="card-image-overlay">
                             </div>
@@ -207,8 +208,9 @@
 
             </div>
             <div id="deck" class="col">
-                <div class="card w-25 h-100">
+                <div class="new-card card w-25 h-100">
                 </div>
+                <button id="button" type="button" class="btn btn-primary">Nueva Carta</button>
             </div>
             <!--
             <div class="col hand">

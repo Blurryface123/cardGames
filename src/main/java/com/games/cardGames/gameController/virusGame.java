@@ -1,5 +1,6 @@
 package com.games.cardGames.gameController;
 
+import com.games.cardGames.models.Card;
 import com.games.cardGames.models.Coordinate;
 import com.games.cardGames.models.Greeting;
 import com.games.cardGames.models.HelloMessage;
@@ -29,10 +30,16 @@ public class virusGame {
     @RequestMapping(path = "/board")
     public Coordinate positions (Coordinate coords){
 
-        return new Coordinate(coords.getY(),coords.getX());
+        return  new Coordinate(coords.getId(),coords.getY(),coords.getX());
     }
 
+    @MessageMapping("/createCard")
+    @SendTo("/topic/newCard")
+    @RequestMapping
+    public Card newCard (Card card){
 
+        return  new Card(card.getId(),card.getCardValue());
+    }
 
 
 
