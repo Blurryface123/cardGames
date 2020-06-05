@@ -1,4 +1,5 @@
 var userID = Math.floor(Math.random() * 10);
+//window.response = false;
 function connect() {
   var socket = new SockJS('/card-games'); //AQUI SE CONECTA CON EL BACK
   stompClient = Stomp.over(socket);
@@ -6,22 +7,26 @@ function connect() {
 
   //MIENTRAS ESTEMOS CONECTADOS
   stompClient.connect({}, function (frame) {
-    var newItem = `<div class="nueva-carta own-hand"><img class="card-img" src="./img/carta-virus.jpg" alt="Card image">
-    <div class="card-image-overlay"></div></div>`;
+    var cardImg = `<img class="card-img" src="./img/carta-virus.jpg" alt="Card image">
+    <div class="card-image-overlay"></div>`;
     setCookie(userID);
     stompClient.subscribe('/topic/newCard', function (card) {
       var cardString = JSON.parse(card.body).cardValue;
       var cardId = JSON.parse(card.body).id;
 
-      $(cardString).attr("id", cardId).appendTo("#deck");
+      $(cardString).attr("id", cardId).html(cardImg).appendTo("#deck");
+      
+
     });
+
     stompClient.subscribe('/topic/conexion', function (positionsValues) {
       var id = JSON.parse(positionsValues.body).id;
       var y = JSON.parse(positionsValues.body).y;
       var x = JSON.parse(positionsValues.body).x;
       console.log("TOP: " + y);
       console.log("LEFT: " + x);
-      $("#"+id).css({
+      console.log("subscribe id: " + id);
+      $("#" + id).css({
         top: y + "px",
         left: x + "px"
       });
@@ -61,13 +66,17 @@ $(function () {
   helperLeft = null;
   var style = "style='top: " + helperTop + "px; left: " + helperLeft + "px; height:130px;width: 100px;'";
 
+  createCard();
+  dragCard();
+});
+
+function createCard() {
   var button = $("#button");
 
   button.on("click", function (e) {
-    var $this = $(this);
     var $cartaDiv = $('<div>', {
       class: "nueva-carta card own-hand",
-      id: ($(".nueva-carta").length + 1) //aqui el lenght es 0 porque no hay nada creado
+      id: "card-" + ($(".nueva-carta").length + 1) //aqui el lenght es 0 porque no hay nada creado
     }).css({
       top: "15px",
       left: "15px",
@@ -76,34 +85,34 @@ $(function () {
       position: "absolute"
     });
     //$($cartaDiv).appendTo($this.parent());
-    var id = ($(".nueva-carta").length +1);
+    var id = "card-" + ($(".nueva-carta").length + 1);
 
     console.log($cartaDiv[0].outerHTML);
     console.log("id: " + id);
-    console.log("string div: " + $("#carta-" + ($(".nueva-carta").length + 1)).outerHTML)
     stompClient.send("/app/createCard", {}, JSON.stringify(
       {
-        'id': ($(".nueva-carta").length+1),
+        'id': "card-" + ($(".nueva-carta").length + 1),
         'cardValue': $cartaDiv[0].outerHTML
       }
     ));
   });
+}
 
+function dragCard() {
   //ver https://api.jquery.com/on/ y even delegation luego para evitar tener que hacer dos clicks para mover carta
-  $("#deck").on("mousedown",".nueva-carta", function (e) {
-    $(".nueva-carta").draggable({
+  $(document).on("mousedown", ".nueva-carta", function (e) {
+    console.log("id PARA VER: " + this.id);
+    $("#" + this.id).draggable({
       grid: [20, 20],
       drag: function (e, ui) {
-        console.log("CARTA NUEVA"+($(".nueva-carta").length));
         stompClient.send("/app/prueba", {}, JSON.stringify(
           {
-            'id': ($(".nueva-carta").length),
+            'id': this.id,
             'y': ui.position.top,
             'x': ui.position.left
           }
         ));
       }
     });
-  })
-
-});
+  });
+}

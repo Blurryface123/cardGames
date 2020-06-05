@@ -2,19 +2,19 @@ package com.games.cardGames.models;
 
 public class Card {
 
-    int id;
+    String id;
     String cardValue;
 
-    public Card(int id, String cardValue) {
+    public Card(String id, String cardValue) {
         this.id = id;
         this.cardValue = cardValue;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -1,21 +1,21 @@
 package com.games.cardGames.models;
 
 public class Coordinate {
-    int id;
+    String id;
     int y;
     int x;
 
-    public Coordinate(int id, int y, int x) {
+    public Coordinate(String id, int y, int x) {
         this.id = id;
         this.y = y;
         this.x = x;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
