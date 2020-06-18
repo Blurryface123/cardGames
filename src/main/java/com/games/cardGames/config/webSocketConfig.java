@@ -1,6 +1,7 @@
 package com.games.cardGames.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -9,9 +10,7 @@ import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.messaging.simp.user.SimpUserRegistry;
 import org.springframework.web.socket.WebSocketHandler;
-import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
-import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
-import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
+import org.springframework.web.socket.config.annotation.*;
 import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 
@@ -24,7 +23,7 @@ public class webSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic");
+        config.enableSimpleBroker("/queue/","/topic");
         config.setApplicationDestinationPrefixes("/app");
     }
 
@@ -32,7 +31,7 @@ public class webSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/card-games")
                 //.setAllowedOrigins("mydomain.com")
-                .setHandshakeHandler(new DefaultHandshakeHandler(){
+                /*.setHandshakeHandler(new DefaultHandshakeHandler(){
                     public boolean beforeHandShake(ServerHttpRequest request, ServerHttpResponse response,
                                                 WebSocketHandler wshandler, Map attributes) throws Exception{
                         if(request instanceof ServletServerHttpRequest){
@@ -44,22 +43,10 @@ public class webSocketConfig implements WebSocketMessageBrokerConfigurer {
                         return true;
 
                     }
-                })
+                })*/
                 .withSockJS();
         registry.addEndpoint("/virus-game")
-                .setHandshakeHandler(new DefaultHandshakeHandler(){
-                    public boolean beforeHandShake(ServerHttpRequest request, ServerHttpResponse response,
-                                                   WebSocketHandler wshandler, Map attributes) throws Exception{
-                        if(request instanceof ServletServerHttpRequest){
-                            ServletServerHttpRequest serverRequest = (ServletServerHttpRequest) request;
-                            HttpSession session = serverRequest.getServletRequest().getSession();
-                            attributes.put("sessionId",session.getId());
-                            System.out.println(attributes.get("sessionId"));
-                        }
-                        return true;
-
-                    }
-                })
+                .setAllowedOrigins("*")
                 .withSockJS();
     }
 

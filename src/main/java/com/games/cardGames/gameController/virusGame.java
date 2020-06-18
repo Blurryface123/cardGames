@@ -4,14 +4,22 @@ import com.games.cardGames.models.Card;
 import com.games.cardGames.models.Coordinate;
 import com.games.cardGames.models.Greeting;
 import com.games.cardGames.models.HelloMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.socket.messaging.SessionConnectEvent;
+import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 import org.springframework.web.util.HtmlUtils;
+
+
 
 @Controller
 public class virusGame {
+    private static final Logger LOGGER = LoggerFactory.getLogger(virusGame.class);
+
     @MessageMapping("/hello")//DONDE SE RECIBE LO QUE ENVIA EL CLIENTE
     @SendTo("/topic/greetings")//SE LE ENVIA AL CLIENTE SUBSCRITO
     @RequestMapping(path = "/test1")
@@ -30,10 +38,20 @@ public class virusGame {
 
     @MessageMapping("/createCard")
     @SendTo("/topic/newCard")
-    @RequestMapping
     public Card newCard (Card card){
 
-        return  new Card(card.getId(),card.getCardValue());
+
+        String cardImg = "<img class=\"card-img\" src=\"./img/carta-virus.jpg\" alt=\"Card image\">" +
+                "<div class=\"card-image-overlay\"></div>\"";
+        return  new Card(card.getId(),card.getCardValue(),cardImg);
+    }
+
+    @MessageMapping("/setImg")
+    @SendTo("/topic/newImg")
+    public Card newImg (Card card, HttpSessionHandshakeInterceptor session){
+        System.out.println(session.getAttributeNames().toString());
+
+        return  new Card(card.getId(),card.getCardValue(),card.getCardImg());
     }
 
 
