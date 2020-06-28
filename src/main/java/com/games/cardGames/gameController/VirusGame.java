@@ -15,6 +15,8 @@ import org.springframework.web.socket.server.support.HttpSessionHandshakeInterce
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 @Controller
@@ -28,26 +30,22 @@ public class VirusGame {
     private static VirusService newVirusService = new VirusService();
 
 
-    public static final ArrayList<String> SHUFFLE_DECK;
+    public  ArrayList<String> SHUFFLE_DECK = newVirusService.shuffle();
 
-    static {
-        SHUFFLE_DECK = newVirusService.shuffle();
-    }
+
 
 
 
     @MessageMapping("/pideCarta")//DONDE SE RECIBE LO QUE ENVIA EL CLIENTE
     @SendToUser("/queue/dealCard")
     public Card darCarta(User userId, Principal principal) throws Exception{
-        //hacer un string final con esto
-        /*String cardImg = "<img class=\"card-img\" src=\"\" alt=\"Card image\">" +
-                "<div class=\"card-image-overlay\"></div>";*/
-
+        int cardNum= 69-SHUFFLE_DECK.size();
 
         String cardValue = newVirusService.dealSingleCard(SHUFFLE_DECK);
-        System.out.println(SHUFFLE_DECK.size());
+        String cardId = cardValue +cardNum;
+        System.out.println(69-SHUFFLE_DECK.size());
         System.out.println(SHUFFLE_DECK);
-        Card cardToDeal = new Card("card-"+cardValue,cardValue,null);
+        Card cardToDeal = new Card(cardId,cardValue,null);
         SHUFFLE_DECK.remove(SHUFFLE_DECK.get(0));
         //messagingTemplate.convertAndSendToUser(userId.getId(),"/queue/dealCard",new Card("card-"+cardValue,cardValue,cardImg));
 
@@ -72,12 +70,14 @@ public class VirusGame {
 
 
 
-    @MessageMapping("/setImg")
-    @SendTo("/topic/newImg")
-    public Card newImg (Card card, HttpSessionHandshakeInterceptor session){
-        System.out.println(session.getAttributeNames().toString());
+    @MessageMapping("/discard")
+    public void reShuffle (Card card){
+        ArrayList<String> newDeck = new ArrayList<>();
+        List<String> arrayOfIds = Arrays.asList(card.getId().split(","));
+        arrayOfIds.forEach((id) -> newDeck.add(id));
+        SHUFFLE_DECK.addAll(newDeck);
+        System.out.println(SHUFFLE_DECK);
 
-        return  new Card(card.getId(),card.getCardValue(),card.getCoords());
     }
 
 
