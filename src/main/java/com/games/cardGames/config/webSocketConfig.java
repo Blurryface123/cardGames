@@ -23,13 +23,14 @@ public class webSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/queue/","/topic");
+        config.enableSimpleBroker("/topic", "/queue");
         config.setApplicationDestinationPrefixes("/app");
+        config.setUserDestinationPrefix("/user");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/card-games")
+        //registry.addEndpoint("/card-games")
                 //.setAllowedOrigins("mydomain.com")
                 /*.setHandshakeHandler(new DefaultHandshakeHandler(){
                     public boolean beforeHandShake(ServerHttpRequest request, ServerHttpResponse response,
@@ -44,14 +45,34 @@ public class webSocketConfig implements WebSocketMessageBrokerConfigurer {
 
                     }
                 })*/
-                .withSockJS();
+                //.withSockJS();
         registry.addEndpoint("/virus-game")
-                .setAllowedOrigins("*")
+                .setHandshakeHandler(new DefaultHandshakeHandler() {
+
+                    public boolean beforeHandshake(ServerHttpRequest request,ServerHttpResponse response,
+                            WebSocketHandler wsHandler, Map attributes) throws Exception {
+
+                        if (request instanceof ServletServerHttpRequest) {
+                            ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
+
+                            HttpSession session = servletRequest.getServletRequest().getSession();
+                            attributes.put("sessionId", session.getId());
+                        }
+                        return true;
+                    }})
+                .setAllowedOrigins("http://127.0.0.1:5500")
                 .withSockJS();
     }
 
 
-
+   /* @Override
+    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+        registry.addHandler(myHandler(), "/myHandler").setAllowedOrigins("http://127.0.0.1:5500/board/board.html");
+    }
+ean
+    public WebSocketHandler myHandler() {
+        return new MyHandler();
+    }*/
     /*//ENDPOINT
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry){

@@ -53,6 +53,7 @@ class CardGamesApplicationTests {
 				});
 	}
 
+	//reparte 3 cartas al inicio del juego a cada jugador
 	@Test
 	void dealCards(ArrayList<String> shuffledDeck, int numPlayers){
 		ArrayList<String> player1 = new ArrayList<>();
@@ -78,10 +79,22 @@ class CardGamesApplicationTests {
 		System.out.println(player3);
 	}
 
+	//reparte cartas despues de que el juego haya empezado
+	@Test
+	void dealSingleCard(ArrayList<String> deck){
+		System.out.println(deck.get(0));
+		deck.remove(deck.get(0));
+	};
+
 	@Test
 	void game(){
 		ArrayList<String> shuffledDeck = shuffle();
+		System.out.println(shuffledDeck);
 		dealCards(shuffledDeck,3);
+		for (int i = 0; i < 4; i++) {
+			dealSingleCard(shuffledDeck);
+		}
 
+		System.out.println(shuffledDeck);
 	}
 }

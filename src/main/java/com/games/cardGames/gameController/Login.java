@@ -9,7 +9,7 @@ import java.util.UUID;
 @RestController
 public class Login {
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "*")
     @PostMapping(value = "/login")
     private User authenticateUser(@RequestBody User user) {
         System.out.println(user.toString());
@@ -20,6 +20,7 @@ public class Login {
         }else {
             System.out.println("usuario erroneo");
         }
+        System.out.println(verrifUser);
         return verrifUser;
     }
 }

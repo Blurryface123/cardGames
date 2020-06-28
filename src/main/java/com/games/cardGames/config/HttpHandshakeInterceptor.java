@@ -1,4 +1,4 @@
-package com.games.cardGames.config;
+/*package com.games.cardGames.config;
 
 
 import org.springframework.http.server.ServerHttpRequest;
@@ -29,3 +29,4 @@ public class HttpHandshakeInterceptor implements HandshakeInterceptor {
     }
 }
 
+*/

@@ -1,4 +1,4 @@
-package com.games.cardGames.config;
+/*package com.games.cardGames.config;
 
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
@@ -17,3 +17,4 @@ public class WwebsocketEventListener {
         //System.out.println(headerAccessor.getSessionAttributes().get("sessionId").toString());
     }
 }
+*/
