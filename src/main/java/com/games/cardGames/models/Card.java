@@ -4,10 +4,12 @@ public class Card {
 
     String id;
     String cardValue;
+    Coordinate coords;
 
-    public Card(String id, String cardValue) {
+    public Card(String id, String cardValue,Coordinate coords) {
         this.id = id;
         this.cardValue = cardValue;
+        this.coords = coords;
     }
 
     public String getId() {
@@ -25,5 +27,14 @@ public class Card {
     public void setCardValue(String cardValue) {
         this.cardValue = cardValue;
     }
+
+    public Coordinate getCoords() {
+        return coords;
+    }
+
+    public void setCoords(Coordinate coords) {
+        this.coords = coords;
+    }
+
 
 }

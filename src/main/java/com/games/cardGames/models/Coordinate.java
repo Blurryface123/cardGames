@@ -2,10 +2,10 @@ package com.games.cardGames.models;
 
 public class Coordinate {
     String id;
-    int y;
-    int x;
+    Long y;
+    Long x;
 
-    public Coordinate(String id, int y, int x) {
+    public Coordinate(String id, Long y, Long x) {
         this.id = id;
         this.y = y;
         this.x = x;
@@ -19,19 +19,19 @@ public class Coordinate {
         this.id = id;
     }
 
-    public int getY() {
+    public Long getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(Long y) {
         this.y = y;
     }
 
-    public int getX() {
+    public Long getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(Long x) {
         this.x = x;
     }
 

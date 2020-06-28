@@ -7,7 +7,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CardGamesApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CardGamesApplication.class, args);
+		try {
+			SpringApplication.run(CardGamesApplication.class, args);
+		}catch (Exception e){
+			System.out.println(e.getStackTrace());
+		}
 	}
 
 
