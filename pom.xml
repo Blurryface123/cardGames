@@ -59,9 +59,9 @@
     </dependency> 
   </dependencies>  
   <build> 
-    <plugins> 
-      <plugin> 
-        <groupId>com.microsoft.azure</groupId>  
+    <plugins>
+      <plugin>
+        <groupId>com.microsoft.azure</groupId>
         <artifactId>azure-webapp-maven-plugin</artifactId>  
         <version>1.9.1</version>  
         <configuration>
