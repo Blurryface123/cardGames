@@ -71,7 +71,7 @@
           <pricingTier>F1</pricingTier>
           <region>France Central</region>
           <runtime>
-            <os>windows</os>
+            <os>linux</os>
             <javaVersion>1.8</javaVersion>
             <webContainer>java 8</webContainer>
           </runtime>
