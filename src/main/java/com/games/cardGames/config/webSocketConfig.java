@@ -60,7 +60,7 @@ public class webSocketConfig implements WebSocketMessageBrokerConfigurer {
                         }
                         return true;
                     }})
-                .setAllowedOrigins("http://127.0.0.1:5500")
+                .setAllowedOrigins("https://blurryface123.github.io")
                 .withSockJS();
     }
 

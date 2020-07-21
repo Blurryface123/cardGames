@@ -1,4 +1,4 @@
-package com.games.cardGames;
+/*package com.games.cardGames;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,7 +42,7 @@ class CardGamesApplicationTests {
 		return deck;
 	}
 
-
+*//*
 
 	void insertMultipleValues(List<String> listaInicial, ArrayList<String> listaDestino,int numVeces ){
 		listaInicial.forEach((x) -> {
@@ -98,3 +98,4 @@ class CardGamesApplicationTests {
 		System.out.println(shuffledDeck);
 	}
 }
+*/
