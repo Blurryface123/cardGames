@@ -5,11 +5,13 @@ public class Card {
     String id;
     String cardValue;
     Coordinate coords;
+    String parentId;
 
-    public Card(String id, String cardValue,Coordinate coords) {
+    public Card(String id, String cardValue,Coordinate coords, String parentId) {
         this.id = id;
         this.cardValue = cardValue;
         this.coords = coords;
+        this.parentId = parentId;
     }
 
     public String getId() {
@@ -34,6 +36,14 @@ public class Card {
 
     public void setCoords(Coordinate coords) {
         this.coords = coords;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 
 

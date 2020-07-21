@@ -30,9 +30,15 @@ public class VirusGame {
     private static VirusService newVirusService = new VirusService();
 
 
-    public  ArrayList<String> SHUFFLE_DECK = newVirusService.shuffle();
+    public  ArrayList<String> SHUFFLE_DECK = null;
 
 
+    @MessageMapping("/startGame")
+    public void restartGame(){
+        SHUFFLE_DECK = newVirusService.shuffle();
+        System.out.println("start/restart game");
+        System.out.println(SHUFFLE_DECK);
+    }
 
 
 
@@ -45,7 +51,7 @@ public class VirusGame {
         String cardId = cardValue +cardNum;
         System.out.println(69-SHUFFLE_DECK.size());
         System.out.println(SHUFFLE_DECK);
-        Card cardToDeal = new Card(cardId,cardValue,null);
+        Card cardToDeal = new Card(cardId,cardValue,null,null);
         SHUFFLE_DECK.remove(SHUFFLE_DECK.get(0));
         //messagingTemplate.convertAndSendToUser(userId.getId(),"/queue/dealCard",new Card("card-"+cardValue,cardValue,cardImg));
 
@@ -60,8 +66,8 @@ public class VirusGame {
         return  card;
     }
 
-    @MessageMapping("/prueba")
-    @SendTo("/topic/conexion")
+    @MessageMapping("/dragCoord")
+    @SendTo("/topic/drag")
     @RequestMapping(path = "/board")
     public Coordinate positions (Coordinate coords){
 
