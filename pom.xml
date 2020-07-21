@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.games</groupId>
-	<artifactId>cardGames</artifactId>
+	<artifactId>blurryface123</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>cardGames</name>
+	<name>blurryface123</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -66,7 +66,33 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>com.microsoft.azure</groupId>
+				<artifactId>azure-webapp-maven-plugin</artifactId>
+				<version>1.9.1</version>
+				<configuration>
+					<schemaVersion>V2</schemaVersion>
+					<resourceGroup>BlurryfaceCardGames_group</resourceGroup>
+					<appName>blurryface123</appName>
+					<pricingTier>F1</pricingTier>
+					<region>France Central</region>
+					<runtime>
+						<os>linux</os>
+						<javaVersion>1.8</javaVersion>
+						<webContainer>java 8</webContainer>
+					</runtime>
+					<deployment>
+						<resources>
+							<resource>
+								<directory>${project.basedir}/target</directory>
+								<includes>
+									<include>*.jar</include>
+								</includes>
+							</resource>
+						</resources>
+					</deployment>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-
 </project>
