@@ -10,12 +10,12 @@ import java.util.List;
 @Service
 public class VirusService {
 
-    List<String> organo = Arrays.asList("corazon", "estomago", "cerebro", "hueso");
+    List<String> organo = Arrays.asList("or-corazon", "ov-estomago", "oa-cerebro", "oa-hueso");
     List<String> virus = Arrays.asList("v-rojo", "v-amarillo", "v-verde", "v-azul");
     List<String> medicina = Arrays.asList("m-rojo", "m-amarillo", "m-verde", "m-azul");
-    List<String> tratamiento = Arrays.asList("transplante", "ladron", "contagio", "guante", "error-medico");
-    List<String> comodin = Arrays.asList("organo-comodin", "virus-comodin", "medicina-comodin",
-            "medicina-comodin", "medicina-comodin", "medicina-comodin");
+    List<String> tratamiento = Arrays.asList("t-transplante", "t-ladron", "t-contagio", "t-guante", "t-error-medico");
+    List<String> comodin = Arrays.asList("o-comodin", "c-virus", "c-medicina",
+            "c-medicina", "c-medicina", "c-medicina");
 
 
     public ArrayList<String> shuffle(){
